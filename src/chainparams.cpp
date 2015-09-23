@@ -54,7 +54,7 @@ static void convertSeed6(std::vector<CAddress> &vSeedsOut, const SeedSpec6 *data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0, uint256("0x000000ce0afd6eb513d9a2b79db135c5571dece4489ad7002e62029f824f778c"))
+               ( 0, uint256("0x00005dbb1354841b2a3e442f2e6bedd425a594a67a30e22214ba5c1a51246467"))
         // ( 11111, uint256("0x0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee92559f542fdb26e7c1d"))
         // ( 33333, uint256("0x000000002dd5588a74784eaa7ab0507a18ad16a236e7b1ce69f00d7ddfb5d0a6"))
         // ( 74000, uint256("0x0000000000573993a3c9e41ce34471c079dcf5f52a0e824a81e7f953b8661a20"))
@@ -115,7 +115,7 @@ public:
         pchMessageStart[3] = 0xd9;
         vAlertPubKey = ParseHex("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
         nDefaultPort = 10333;
-        bnProofOfWorkLimit = ~uint256(0) >> 24;//32
+        bnProofOfWorkLimit = ~uint256(0) >> 8;//32
         nSubsidyHalvingInterval = 262800;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -136,7 +136,7 @@ public:
          */
         //const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
 		// const char* pszTimestamp = "CNN News 8/26/2015 Ex-station employee killed TV crew during live broadcast";
-		const char* pszTimestamp = "CNN News 9/14/2015 Deadly campus shooting";
+		const char* pszTimestamp = "CNN News 9/22/2015 Chinese jet performs unsafe maneuver near U.S. plane, Pentagon says";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -147,13 +147,13 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1442282049;//1231006505;
-        genesis.nBits    = 0x1e00ffff;//0x1d00ffff;
-        genesis.nNonce   = 14684677;//2083236893;
+        genesis.nTime    = 1442967284;//1231006505;
+        genesis.nBits    = 0x1f00ffff;//0x1d00ffff;
+        genesis.nNonce   = 84783;//2083236893;
 		
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000000ce0afd6eb513d9a2b79db135c5571dece4489ad7002e62029f824f778c"));
-        assert(genesis.hashMerkleRoot == uint256("0xf8fb9db9b15503e5961d65116996906dc4f5388ffba66fd6ae03ff5128b56602"));
+        assert(hashGenesisBlock == uint256("0x00005dbb1354841b2a3e442f2e6bedd425a594a67a30e22214ba5c1a51246467"));
+        assert(genesis.hashMerkleRoot == uint256("0xd696fe616fbbe2b68fa4f10e505a560fff3683015abaa8580a26c26c590364f2"));
         // assert(hashGenesisBlock == uint256("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
         // assert(genesis.hashMerkleRoot == uint256("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
@@ -177,7 +177,7 @@ public:
         // convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -237,7 +237,7 @@ public:
         // convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
