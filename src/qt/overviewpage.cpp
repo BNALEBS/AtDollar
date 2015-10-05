@@ -14,12 +14,35 @@
 #include "transactiontablemodel.h"
 #include "walletmodel.h"
 
+#include "rpcconsole.h"
+
+#include "main.h"
+#include "chainparams.h"
+#include "rpcserver.h"
+#include "rpcclient.h"
+#include "util.h"
+
+#include "json/json_spirit_value.h"
+
+#include <openssl/crypto.h>
+
+#include <QKeyEvent>
+#include <QScrollBar>
+#include <QThread>
+#include <QTime>
+#include <QMessageBox>
+#include <QTimer>
+
+#if QT_VERSION < 0x050000
+#include <QUrl>
+#endif
+
 #include <QAbstractItemDelegate>
 #include <QPainter>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3
-
+std::string str_g;
 class TxViewDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
@@ -117,7 +140,12 @@ OverviewPage::OverviewPage(QWidget *parent) :
     txdelegate(new TxViewDelegate()),
     filter(0)
 {
+    str_g = "";
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(timerUpDate()));
+
     ui->setupUi(this);
+    timer->start(1000);
 
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
@@ -127,18 +155,101 @@ OverviewPage::OverviewPage(QWidget *parent) :
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
 
+    connect(ui->fullmining, SIGNAL(clicked()), this, SLOT(fullspeed()));
+    connect(ui->halfmining, SIGNAL(clicked()), this, SLOT(halfspeed()));
+    connect(ui->stopmining, SIGNAL(clicked()), this, SLOT(zerospeed()));
+
     // init "out of sync" warning labels
     ui->labelWalletStatus->setText("(" + tr("out of sync") + ")");
     ui->labelTransactionsStatus->setText("(" + tr("out of sync") + ")");
-
+    ui->miningstatus->setText("(" + tr("stop") + ")");
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
+}
+
+void OverviewPage::timerUpDate()
+{
+    request(QString("getgenerate"));
+    if(str_g == "true")
+    {
+        ui->miningstatus->setText("(" + tr("Mining...") + ")");
+    }
+    else
+    {
+        ui->miningstatus->setText("(" + tr("Stoped") + ")");
+    }
+    timer->start(1000);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
 {
     if(filter)
         emit transactionClicked(filter->mapToSource(index));
+}
+
+void OverviewPage::fullspeed()
+{
+    QString questionString = tr("The minging process will use 100% of your CPU");
+
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Start Mining"),
+                                                               questionString,
+                                                               QMessageBox::Yes | QMessageBox::Cancel,
+                                                               QMessageBox::Cancel);
+
+    if(retval == QMessageBox::Cancel)
+    {
+        return;
+    }
+    request(QString("setgenerate true"));
+}
+
+void OverviewPage::halfspeed()
+{
+    QString questionString = tr("The minging process will use 50% of your CPU");
+
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Start Mining"),
+                                                               questionString,
+                                                               QMessageBox::Yes | QMessageBox::Cancel,
+                                                               QMessageBox::Cancel);
+
+    if(retval == QMessageBox::Cancel)
+    {
+        return;
+    }
+    request(QString("setgenerate true 1"));
+}
+
+void OverviewPage::zerospeed()
+{
+    if (str_g == "true")
+    {
+        QString questionString = tr("Are you sure want to stop mining");
+
+        QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Stop Mining"),
+                                                                   questionString,
+                                                                   QMessageBox::Yes | QMessageBox::Cancel,
+                                                                   QMessageBox::Cancel);
+
+        if(retval == QMessageBox::Cancel)
+        {
+            return;
+        }
+         request(QString("setgenerate false"));
+    }
+    else
+    {
+        QString questionString = tr("No mining process have started yet");
+
+        QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Error"),
+                                                                   questionString,
+                                                                   QMessageBox::Yes | QMessageBox::Cancel,
+                                                                   QMessageBox::Cancel);
+        if(retval == QMessageBox::Yes)
+        {
+            return;
+        }
+    }
+
 }
 
 OverviewPage::~OverviewPage()
@@ -258,3 +369,54 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
 }
+
+
+void request(const QString &command)
+{
+    std::vector<std::string> args;
+    if(!parseCommandLine(args, command.toStdString()))
+    {
+        //emit reply(RPCConsole::CMD_ERROR, QString("Parse error: unbalanced ' or \""));
+        return;
+    }
+    if(args.empty())
+        return; // Nothing to do
+    try
+    {
+        // Convert argument list to JSON objects in method-dependent way,
+        // and pass it along with the method name to the dispatcher.
+        json_spirit::Value result = tableRPC.execute(
+                    args[0],
+                RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end())));
+
+        // Format result reply
+        if (result.type() == json_spirit::null_type)
+            str_g = "";
+        else if (result.type() == json_spirit::str_type)
+            str_g = result.get_str();
+        else
+            str_g = write_string(result, true);
+
+        //emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(str_g));
+    }
+    catch (json_spirit::Object& objError)
+    {
+        try // Nice formatting for standard-format error
+        {
+            std::string message = find_value(objError, "message").get_str();
+            //emit reply(RPCConsole::CMD_ERROR, QString::fromStdString(message) + " (code " + QString::number(code) + ")");
+            assert(false);
+        }
+        catch(std::runtime_error &) // raised when converting to invalid type, i.e. missing code or message
+        {   // Show raw JSON object
+            // emit reply(RPCConsole::CMD_ERROR, QString::fromStdString(write_string(json_spirit::Value(objError), false)));
+            assert(false);
+        }
+    }
+    catch (std::exception& e)
+    {
+        //emit reply(RPCConsole::CMD_ERROR, QString("Error: ") + QString::fromStdString(e.what()));
+        assert(false);
+    }
+}
+

@@ -12,6 +12,8 @@
 
 #include <QDialog>
 
+bool parseCommandLine(std::vector<std::string> &args, const std::string &strCommand);
+
 class ClientModel;
 
 namespace Ui {

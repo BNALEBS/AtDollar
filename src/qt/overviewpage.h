@@ -6,8 +6,15 @@
 #define BITCOIN_QT_OVERVIEWPAGE_H
 
 #include "amount.h"
+#include "guiutil.h"
+#include "peertablemodel.h"
+
+#include "net.h"
 
 #include <QWidget>
+
+void request(const QString &command);
+
 
 class ClientModel;
 class TransactionFilterProxy;
@@ -56,11 +63,19 @@ private:
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;
 
+    QTimer *timer;
+
+
+
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
     void updateWatchOnlyLabels(bool showWatchOnly);
+    void fullspeed();
+    void halfspeed();
+    void zerospeed();
+    void timerUpDate();
 };
 
 #endif // BITCOIN_QT_OVERVIEWPAGE_H
