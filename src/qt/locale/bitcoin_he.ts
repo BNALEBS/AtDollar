@@ -2854,8 +2854,8 @@ Address: %4
         <translation>התחברות דרך מתווך SOCKS5</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>כל הזכויות שמורות (C)‏ 2009‏-%i מתכנתי ליבת ביטקוין</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>כל הזכויות שמורות (C)‏ 2015‏-%i מתכנתי ליבת ביטקוין</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

@@ -3139,8 +3139,8 @@ rpcpassword=%s
         <translation>Підключитись через SOCKS5-проксі</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>(C) 2009-%i Розробники Atdollar Core</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>(C) 2015-%i Розробники Atdollar Core</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

@@ -3143,8 +3143,8 @@ mesela: alertnotify=echo %%s | mail -s "Atdollar Alert" admin@foo.com
         <translation>SOCKS5 vekil sunucusu vasıtasıyla bağlan</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>Telif hakkı 2009-%i Atdollar Çekirdeği Geliştiricileri</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>Telif hakkı 2015-%i Atdollar Çekirdeği Geliştiricileri</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

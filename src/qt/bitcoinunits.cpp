@@ -18,8 +18,8 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
     unitlist.append(ATD);
-    unitlist.append(mATD);
-    unitlist.append(uATD);
+//    unitlist.append(mATD);
+//    unitlist.append(uATD);
     return unitlist;
 }
 

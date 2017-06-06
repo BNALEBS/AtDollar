@@ -3142,8 +3142,8 @@ per exemple: alertnotify=echo %%s | mail -s "Avís de Atdollar" admin@foo.com</t
         <translation>Connecta a través del proxy SOCKS5</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>Copyright (C) 2009-%i Els desenvolupadors del Atdollar Core</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>Copyright (C) 2015-%i Els desenvolupadors del Atdollar Core</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

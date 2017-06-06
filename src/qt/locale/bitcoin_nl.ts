@@ -3128,8 +3128,8 @@ Adres: %4
         <translation>Verbind door SOCKS5 proxy</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>Auteursrecht (C) 2009-%i De Atdollar Core Ontwikkelaars</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>Auteursrecht (C) 2015-%i De Atdollar Core Ontwikkelaars</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

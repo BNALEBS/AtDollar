@@ -2907,8 +2907,8 @@ Adres: %4
         <translation>Połącz przez SOCKS5 proxy</translation>
     </message>
     <message>
-        <source>Copyright (C) 2009-%i The Atdollar Core Developers</source>
-        <translation>Copyright (C) 2009-%i The Atdollar Core Developers</translation>
+        <source>Copyright (C) 2015-%i The Atdollar Core Developers</source>
+        <translation>Copyright (C) 2015-%i The Atdollar Core Developers</translation>
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of Atdollar Core</source>
