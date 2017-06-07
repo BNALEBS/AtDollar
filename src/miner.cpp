@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Atdollar developers
+// Copyright (c) 2015-2017 The Atdollar developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,8 +27,6 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////
 //
 // AtdollarMiner
-//
-
 //
 // Unconfirmed transactions in the memory pool often depend on other
 // transactions in the memory pool. When we select transactions from the

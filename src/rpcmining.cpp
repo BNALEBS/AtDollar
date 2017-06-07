@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Atdollar developers
+// Copyright (c) 2015-2017 The Atdollar developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,7 +19,6 @@
 #endif
 
 #include <stdint.h>
-
 #include <boost/assign/list_of.hpp>
 
 #include "json/json_spirit_utils.h"

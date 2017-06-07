@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 The Atdollar developers
+// Copyright (c) 2015-2017 The Atdollar Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,10 +23,10 @@
 #define CLIENT_VERSION_IS_RELEASE true
 
 /**
- * Copyright year (2009-this)
+ * Copyright year (2015-this)
  * Todo: update this when changing our copyright comments in the source
  */
-#define COPYRIGHT_YEAR 2015
+#define COPYRIGHT_YEAR 2017
 
 #endif //HAVE_CONFIG_H
 
