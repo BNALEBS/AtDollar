@@ -1,7 +1,7 @@
 AtDollar Core integration/staging tree
 =====================================
 
-What is Atdollar?
+What is AtDollar?
 ----------------
 
 AtDollar is an experimental new digital currency that enables instant payments to

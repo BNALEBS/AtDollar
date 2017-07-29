@@ -1,4 +1,4 @@
-The following is a list of assets used in the bitcoin source and their proper attribution.
+The following is a list of assets used in the atdollar source and their proper attribution.
 
 [Wladimir van der Laan](https://github.com/laanwj)
 -----------------------
